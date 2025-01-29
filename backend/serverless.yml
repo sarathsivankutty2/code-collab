@@ -1,0 +1,28 @@
+service: my-graphql-lambda
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: us-east-1
+
+functions:
+  graphql:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          path: graphql
+          method: post
+      - http:
+          path: graphql
+          method: get
+
+package:
+  exclude:
+    - node_modules/**
+    - src/**
+    - Dockerfile
+    - .dockerignore
+plugins:
+  - serverless-offline
+  - serverless-webpack
